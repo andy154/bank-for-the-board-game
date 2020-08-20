@@ -15,7 +15,7 @@ class Method {
 }
 
 new Method('existGame', (data, client) => {
-  new Message('existGame', game ? true : false, client).send();
+  new Message('existGame', game.exist ? true : false, client).send();
 });
 
 module.exports = Method.list;

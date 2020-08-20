@@ -1,14 +1,27 @@
+const config = require('./config.json');
+
 class Game {
 
   constructor(){
-    this.id = Date.now();
-    this.status = 'waitPlayers';
+    this.exist = false;
 
-    this.players = [];
-
-    console.log('game created');
     return this;
   }
+
+  create(){
+    this.id = Date.now();
+    this.exist = true;
+    this.status = 'wait_Players'
+    this.currency = config.currency;
+
+    this.players [];
+  }
+
+  load(){
+    // ...
+  }
+
+
 
 }
 
