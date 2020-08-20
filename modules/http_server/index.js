@@ -1,5 +1,5 @@
 const express = require('express');
-const config = ( require('../../config/servers.json') );
+const config = require('./config.json');
 const routing = require('./routing.js');
 
 function main(){
@@ -14,9 +14,9 @@ function main(){
     routing(request, response);
   });
 
-  server.app.listen(config.http_port);
+  server.app.listen(config.port);
 
-  console.log(`[Modules] HTTP-Server is running on port: ${config.http_port}`);
+  console.log(`[Modules] HTTP-Server is running on port: ${config.port}`);
   return server;
 }
 
