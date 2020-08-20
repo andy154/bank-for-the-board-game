@@ -1,2 +1,1 @@
-import '/script/websocket.js';
-alert();
+import '/script/websocket/index.js';
