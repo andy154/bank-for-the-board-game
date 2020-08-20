@@ -18,4 +18,14 @@ new Method('existGame', (data, client) => {
   new Message('existGame', game.exist ? true : false, client).send();
 });
 
+new Method('createGame', () => {
+  game.create();
+  new Message('existGame', true, Client.array).send();
+});
+
+new Method('cancelGame', () => {
+  game.cancel();
+  new Message('existGame', false, Client.array).send();
+})
+
 module.exports = Method.list;

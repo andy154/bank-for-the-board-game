@@ -14,14 +14,16 @@ class Game {
     this.status = 'wait_Players'
     this.currency = config.currency;
 
-    this.players [];
+    this.players = [];
   }
 
   load(){
     // ...
   }
 
-
+  cancel(){
+    this.exist = false;
+  }
 
 }
 
