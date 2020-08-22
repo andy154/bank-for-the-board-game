@@ -1,21 +1,23 @@
-import {socket} from '/script/websocket/index.js';
+import {game, server} from '/script/game/index.js';
+let socket = server.socket;
 
 let button = document.createElement('button');
 document.body.append(button);
 button.innerHTML = 'create';
 button.onclick = () => {
-  socket.send(JSON.stringify({
-    method: 'createGame',
-    data: ''
-  }));
+  game.create(server);
 }
 
 let button2 = document.createElement('button');
 document.body.append(button2);
-button2.innerHTML = 'cancel';
+button2.innerHTML = 'test';
 button2.onclick = () => {
-  socket.send(JSON.stringify({
-    method: 'cancelGame',
-    data: ''
-  }));
+  game.test(server);
+}
+
+let button3 = document.createElement('button');
+document.body.append(button3);
+button3.innerHTML = 'simple';
+button3.onclick = () => {
+//  server.socket.send(JSON.stringify({method: 'existGame', data: ''}));
 }

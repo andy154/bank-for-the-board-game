@@ -14,18 +14,22 @@ class Method {
   }
 }
 
-new Method('existGame', (data, client) => {
-  new Message('existGame', game.exist ? true : false, client).send();
+new Method('existGame', (data, client, id) => {
+  new Message('existGame', game.exist ? true : false, client, id).send();
 });
 
 new Method('createGame', () => {
   game.create();
-  new Message('existGame', true, Client.array).send();
+  //new Message('updateData', {}, Client.array).send();
 });
 
 new Method('cancelGame', () => {
   game.cancel();
-  new Message('existGame', false, Client.array).send();
+  //new Message('updateData', {}, Client.array).send();
+})
+
+new Method('test', (data, client, id) => {
+  new Message('test', data, client, id).send();
 })
 
 module.exports = Method.list;
