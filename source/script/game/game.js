@@ -1,6 +1,5 @@
 export default class Game {
   constructor(){
-    this.promis = {};
 
     return this;
   }
