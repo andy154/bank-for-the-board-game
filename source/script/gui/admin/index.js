@@ -1,4 +1,2 @@
-import GUI from '/script/gui/gui.js';
-export let gui = new GUI();
-
-gui.update();
+import {game} from '/script/game/index.js';
+import {gui} from '/script/gui/admin/interface.js';

@@ -1,23 +1,38 @@
 import Page from '/script/gui/page.js';
-export default class GUI {
-  static W = window.innerWidth;
-  static H = window.innerHeight;
 
+let W = window.innerWidth;
+let H = window.innerHeight;
+
+
+export default class GUI {
   constructor(){
     let canvas = document.createElement('canvas');
-    canvas.width = GUI.W;
-    canvas.height = GUI.H;
+    canvas.width = W;
+    canvas.height = H;
     document.body.append(canvas);
+    this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
 
     this.pages = {};
+
     this.currentPage = null;
+
+    this.dragElement = null;
+    this.dropElement = null;
   }
 
-  update(){
-    this.ctx.clearRect(0, 0, GUI.W, GUI.H);
+  addPage(name){
+    return this.pages[name] = new Page(this);
+  }
+
+  update(event = null){
+    this.ctx.clearRect(0, 0, W, H);
     if(!this.currentPage) return;
 
+    for(let element of this.currentPage.elements){
+      element.draw(event);
+      if(element.onpress) element.onpress();
+    }
   }
 
 }
