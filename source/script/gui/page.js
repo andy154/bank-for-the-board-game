@@ -10,31 +10,8 @@ export default class Page {
     return this;
   }
 
-  addBlock(gui, pos, size, radius, color){
-    let block = new Block(gui, pos, size, radius, color);
-    this.elements.push(block);
+  addBlock(pos, size, radius, color, hoverColor){
+    return new Block(this, pos, size, radius, color, hoverColor);
   }
-  
-  addButton(func, gui, pos, size, radius, color, hoverColor){
-    let block = new Block(func, gui, pos, size, radius, color, hoverColor);
 
-    block.onpress = () => {
-      if(gui.dragElement == block) {
-        block.activeColor = block.hoverColor;
-        block.draw();
-        if(gui.dropElement == block){
-          gui.dragElement = null;
-          gui.dropElement = null;
-          block.func();
-          gui.update();
-        }
-      }else{
-        block.activeColor = block.color;
-        block.draw();
-
-      }
-    };
-
-    this.elements.push(block);
-  }
 }

@@ -13,7 +13,11 @@ function color(r, g, b, a){
 }
 
 let start = gui.addPage('start');
-start.addButton(() => alert('press'), gui, vec(50, 50), vec(50, 15), W*0.01, color(57, 142, 250, 0.85), color(57, 122, 250, 0.85));
+let testBtn = start.addBlock(vec(50, 50), vec(50, 15), W*0.01, color(57, 142, 250, 0.7), color(57, 122, 250, 0.7));
+testBtn.onclick = () => {
+  prompt('test button is work');
+};
+
 gui.currentPage = start;
 gui.update();
 
@@ -22,8 +26,7 @@ gui.canvas.addEventListener('mousedown', event => {
 });
 gui.canvas.addEventListener('mouseup', event => {
   gui.update(event);
-  gui.dragElement = null;
-  gui.dropElement = null;
+
 });
 gui.canvas.addEventListener('mousemove', event => {
   gui.update(event);

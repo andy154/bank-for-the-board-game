@@ -31,7 +31,7 @@ export default class GUI {
 
     for(let element of this.currentPage.elements){
       element.draw(event);
-      if(element.onpress) element.onpress();
+
     }
   }
 

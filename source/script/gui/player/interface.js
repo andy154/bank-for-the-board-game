@@ -13,9 +13,11 @@ function color(r, g, b, a){
 }
 
 let start = gui.addPage('start');
-start.addButton(() => {
+let testBtn = start.addBlock(vec(50, 10), vec(50, 15), W*0.01, color(57, 142, 250, 0.85), color(57, 122, 250, 0.85));
+testBtn.onclick = () => {
   let a = prompt();
-}, gui, vec(50, 50), vec(50, 15), W*0.01, color(57, 142, 250, 0.85), color(57, 122, 250, 0.85));
+};
+
 gui.currentPage = start;
 gui.update();
 
