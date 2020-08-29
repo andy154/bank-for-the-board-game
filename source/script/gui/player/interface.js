@@ -13,10 +13,26 @@ function color(r, g, b, a){
 }
 
 let start = gui.addPage('start');
-let testBtn = start.addBlock(vec(50, 10), vec(50, 15), W*0.01, color(57, 142, 250, 0.85), color(57, 122, 250, 0.85));
+let block = start.addBlock(vec(50, 10), vec(50, 15), W*0.01, color(200, 200, 200, 1), color(200, 200, 200, 1))
+block.text = '';
+let testDrop = start.addBlock(vec(50, 30), vec(50, 15), W*0.01, color(142, 57, 250, 0.7), color(122, 57, 250, 0.7))
+testDrop.dragable = true;
+
+let testBtn = start.addBlock(vec(50, 50), vec(50, 15), W*0.01, color(57, 142, 250, 0.7), color(57, 122, 250, 0.7));
 testBtn.onclick = () => {
-  let a = prompt();
+  prompt('test button is work');
 };
+testBtn.ondrop = () => {
+  alert('drop');
+}
+let testDrop2 = start.addBlock(vec(50, 70), vec(50, 15), W*0.01, color(142, 57, 250, 0.7), color(122, 57, 250, 0.7))
+testDrop2.dragable = true;
+testDrop2.ondrop = () => {
+  alert('drop 2');
+}
+
+let testDrop3 = start.addBlock(vec(50, 90), vec(50, 15), W*0.01, color(142, 57, 250, 0.7), color(122, 57, 250, 0.7))
+testDrop3.dragable = true;
 
 gui.currentPage = start;
 gui.update();
