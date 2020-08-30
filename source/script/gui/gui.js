@@ -1,8 +1,15 @@
 import Page from '/script/gui/page.js';
 
-let W = window.innerWidth;
-let H = window.innerHeight;
+export let W = window.innerWidth;
+export let H = window.innerHeight;
 
+export function vec(x, y){
+  return {x: W/100*x, y: H/100*y};
+}
+
+export function color(r, g, b, a){
+  return {r: r, g: g, b: b, a: a};
+}
 
 export default class GUI {
   constructor(){
