@@ -6,7 +6,8 @@ function main(client, message){
   let method = message.method;
   let data = message.data;
 
-  if(handlerMethods[method]) handlerMethods[method].func(data, client, id);
+  if(handlerMethods[method]) return handlerMethods[method].func(data, client, id);
+  console.log(`[MessageHandler] Внимание! Сообщение с неизвестным методом '${method}'`);
 }
 
 module.exports = main;

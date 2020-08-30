@@ -14,22 +14,31 @@ class Method {
   }
 }
 
-new Method('existGame', (data, client, id) => {
-  new Message('existGame', game.exist ? true : false, client, id).send();
+// Методы, отправляющие клиенты данные по запросу
+new Method('get:game.exist', (data, client, id) => {
+  new Message('get:game.exist', game.exist ? true : false, client, id).send();
 });
 
-new Method('createGame', () => {
-  game.create();
-  //new Message('updateData', {}, Client.array).send();
+new Method('get:game.status', (data, client, id) => {
+  new Message('get:game.status', game.status, client, id).send();
+})
+
+
+// Методы, выполнябщие функции на сервере, по запросу клиента
+new Method('func:game.create', () => {
+  let updatedVars = game.create();
+  new Message('updateData', updatedVars, Client.array).send();
 });
 
-new Method('cancelGame', () => {
-  game.cancel();
-  //new Message('updateData', {}, Client.array).send();
+new Method('func:game.cancel', () => {
+  let updatedVars = game.cancel();
+  new Message('updateData', updatedVars, Client.array).send();
 })
 
-new Method('test', (data, client, id) => {
-  new Message('test', data, client, id).send();
+new Method('set:game.status', (data) => {
+  game.status = data;
+  new Message('updateData', 'game.status', Client.array).send();
 })
+
 
 module.exports = Method.list;

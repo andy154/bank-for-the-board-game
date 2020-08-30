@@ -10,7 +10,7 @@ export default class Connection {
     return this;
   }
 
-  async sendMessage(method, data = null){
+  async sendMessageWithResponse(method, data = ''){
     let id = Date.now();
     this.socket.send(JSON.stringify( { id: id, method: method, data: data } ));
 
@@ -22,9 +22,13 @@ export default class Connection {
         resolve(message);
       };
       this.socket.addEventListener(method, func);
-      // setTimeout();
     });
 
     return await response;
+  }
+
+  sendMessage(method, data = ''){
+    let id = Date.now();
+    this.socket.send(JSON.stringify( { id: id, method: method, data: data } ));
   }
 }
