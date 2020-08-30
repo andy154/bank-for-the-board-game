@@ -5,13 +5,13 @@ export default class Page {
     this.gui = gui;
     this.prevPage = null;
     this.subPages = {};
-    this.elements = [];
+    this.elements = {};
 
     return this;
   }
 
-  addBlock(pos, size, radius, color, hoverColor){
-    return new Block(this, pos, size, radius, color, hoverColor);
+  addBlock(name, pos, size, radius, color, hoverColor){
+    return new Block(this, name, pos, size, radius, color, hoverColor);
   }
 
 }

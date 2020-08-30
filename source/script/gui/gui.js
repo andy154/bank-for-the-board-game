@@ -36,11 +36,11 @@ export default class GUI {
     this.ctx.clearRect(0, 0, W, H);
     if(!this.currentPage) return;
 
-    if(this.currentPage.drag) this.currentPage.elements.sort( (a, b) => {
+    if(this.currentPage.drag) Object.values(this.currentPage.elements).sort( (a, b) => {
       if(a == this.currentPage.drag) return 1;
       if(b == this.currentPage.drag) return -1;
     });
-    this.currentPage.elements.forEach((element) => {
+    Object.values(this.currentPage.elements).forEach((element) => {
       element.draw(event);
     });
   }

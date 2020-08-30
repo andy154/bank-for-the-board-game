@@ -1,5 +1,9 @@
+function toRGBA(color){
+  return `rgba(${color.r}, ${color.g}, ${color.b},${color.a})`;
+}
+
 export default class Block {
-  constructor(page, pos, size, radius, color, hoverColor){
+  constructor(page, name, pos, size, radius, color, hoverColor){
     this.page = page;
 
     this.pos = pos;
@@ -8,6 +12,10 @@ export default class Block {
     this.onclick = null;
     this.ondrop = null;
     this.dragable = false;
+
+    this.text = null;
+    this.fontSize = 15;
+    this.fontColor = {r: 255, g: 255, b: 255, a: 1};
 
     this.offset = {
       x: 0,
@@ -24,7 +32,33 @@ export default class Block {
 
     this.inPath = false;
 
-    page.elements.push(this);
+    page.elements[name] = this;
+    return this;
+  }
+
+  setFontSize(size){
+    this.fontSize = size;
+    return this;
+  }
+
+  setFont(size, color){
+    this.fontSize = size;
+    this.fontColor = color;
+    return this;
+  }
+
+  setText(text){
+    this.text = text;
+    return this;
+  }
+
+  setDragable(value){
+    this.dragable = value;
+    return this;
+  }
+
+  onClick(func){
+    this.onclick = func;
     return this;
   }
 
@@ -35,7 +69,7 @@ export default class Block {
     let w = this.size.x;
     let h = this.size.y;
     let r = this.radius;
-    let color = `rgba(${this.activeColor.r}, ${this.activeColor.g}, ${this.activeColor.b},${this.activeColor.a})`;
+    let color = toRGBA(this.activeColor);
 
     ctx.beginPath();
 
@@ -105,11 +139,11 @@ export default class Block {
 
     if(this.text){
       ctx.beginPath();
-      ctx.font = `72px Arial`;
-      ctx.fillStyle = `rgba(0, 0, 0, 1)`;
+      ctx.font = `${this.size.x/100*this.fontSize}px Arial`;
+      ctx.fillStyle = toRGBA(this.fontColor);
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText(this.text, x, y);
+      ctx.fillText(this.text, this.pos.x + this.move.x - this.offset.x, this.pos.y + this.move.y - this.offset.y);
       ctx.closePath();
     }
 
