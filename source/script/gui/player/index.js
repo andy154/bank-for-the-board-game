@@ -1,6 +1,6 @@
 import {game} from '/script/game/index.js';
 import GUI from '/script/gui/gui.js';
-import {W, H, vec, color} from '/script/gui/gui.js';
+import {W, H, vecPos, vecSize, vec, vecLocal, color} from '/script/gui/gui.js';
 export let gui = new GUI();
 
 function touchStart(event){
@@ -26,12 +26,52 @@ if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigat
   gui.canvas.addEventListener('mousemove', touchMove);
 }
 
-let mainPage = gui.addPage('main');
-mainPage.Title = gui.pages.main.addBlock(vec(50, 10), vec(50, 10), 10, color(57, 142, 235, 0.7), color(57, 122, 235, 0.7));
-mainPage.Title.dragable = true;
-mainPage.Title.fontSize = 8;
-mainPage.Title.fontColor = color(255, 255, 255, 1);
-mainPage.Title.text = 'Имя игрока';
+function title_page(page){
+  page.addBlock('title_page', vecPos(0, 10), vecSize(90, 10), 5, color(57, 142, 235, 0.85))
+  .setFont(13, color(255, 255, 255, 1))
+  .addText('Миллионер', vec(-15, 0), 10)
+  .addText('classic', vec(28, 20), 8, color(235, 10, 10, 1));
+}
 
-gui.currentPage = gui.pages.main;
-gui.update();
+let mainPage = gui.addPage('main');
+title_page(mainPage);
+
+function register(){
+  let name = prompt('Введите ваше имя:');
+
+  if(!name) return register();
+
+  game.playerRegister(name);
+}
+
+let waitPlayersPage = gui.addPage('waitPlayers');
+title_page(waitPlayersPage);
+
+async function main(updatedVars = ''){
+  await game.isLoaded;
+
+  game.exist = updatedVars.includes('game.exist') ? await game.getExist() : game.exist || await game.getExist();
+  if(!game.exist) {
+    gui.currentPage = gui.pages.main;
+    return gui.update();
+  }
+
+  game.status = updatedVars.includes('game.status') ? await game.getStatus() : game.status || await game.getStatus();
+  game.playerData = updatedVars.includes('game.playerData') ? await game.getPlayerData() : game.playerData || await game.getPlayerData();
+  console.log(game.playerData);
+  if(game.status == 'wait_players') {
+    if(game.playerData){
+      gui.currentPage = gui.pages.waitPlayers;
+      return gui.update();
+    }
+    return register();
+  }
+
+}
+
+main();
+
+game.server.socket.addEventListener('updateData', customEvent => {
+  let message = customEvent.detail;
+  main(message.data);
+})

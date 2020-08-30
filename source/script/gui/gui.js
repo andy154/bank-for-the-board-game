@@ -3,8 +3,27 @@ import Page from '/script/gui/page.js';
 export let W = window.innerWidth;
 export let H = window.innerHeight;
 
-export function vec(x, y){
+
+export function vecPos(x, y){ //
+  if(W > H){
+    return {x: W/2 + H/100*x, y: H/100*y};
+  }
+  return {x: W/2 + W/100*x, y: H/100*y};
+}
+
+export function vecSize(x, y){ //
+  if(W > H){
+    return {x: H/100*x, y: H/100*y};
+  }
   return {x: W/100*x, y: H/100*y};
+}
+
+export function vec(x, y){
+  return {x: x, y: y}
+}
+
+export function vecLocal(x, y){
+  return {x: x, y: y};
 }
 
 export function color(r, g, b, a){

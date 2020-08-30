@@ -1,4 +1,5 @@
 const config = require('./config.json');
+const Player = require('./player.js');
 
 class Game {
 
@@ -31,6 +32,19 @@ class Game {
     return 'game.exist';
   }
 
+  getPlayerData(client){
+    let player = Player.find(client.ip);
+    return player ? player.getData() : false;
+  }
+
+  playerRegister(name, client){
+    new Player(name, client);
+    return 'game.playerData; game.playersList';
+  }
+
+  getPlayersList(){
+    return Player.getList();
+  }
 }
 
 module.exports = Game;

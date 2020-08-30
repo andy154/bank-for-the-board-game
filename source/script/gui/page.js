@@ -3,8 +3,6 @@ import Block from '/script/gui/block.js';
 export default class Page {
   constructor(gui){
     this.gui = gui;
-    this.prevPage = null;
-    this.subPages = {};
     this.elements = {};
 
     return this;

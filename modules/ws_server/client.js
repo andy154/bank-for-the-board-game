@@ -1,7 +1,8 @@
 class Client {
   static array = [];
 
-  static find(ip) { return Client.array.find( _client => _client.ip == ip); }
+  static find(ip) { return Client.array.find( _client => _client.ip == ip) };
+  static getAdmin() { return Client.array.find( _client => _client.isAdmin) };
 
   constructor(socket){
     let ip = socket._socket.remoteAddress;

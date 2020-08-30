@@ -1,3 +1,5 @@
+import Text from '/script/gui/text.js';
+
 function toRGBA(color){
   return `rgba(${color.r}, ${color.g}, ${color.b},${color.a})`;
 }
@@ -13,8 +15,8 @@ export default class Block {
     this.ondrop = null;
     this.dragable = false;
 
-    this.text = null;
-    this.fontSize = 15;
+    this.text = [];
+    this.fontSize = 13;
     this.fontColor = {r: 255, g: 255, b: 255, a: 1};
 
     this.offset = {
@@ -47,8 +49,10 @@ export default class Block {
     return this;
   }
 
-  setText(text){
-    this.text = text;
+  addText(text, pos, size, color){
+    pos.x = this.pos.x + (this.size.x * pos.x)/100;
+    pos.y = this.pos.y + (this.size.y * pos.y)/100;
+    this.text.push(new Text(this.page.gui.ctx, text, pos, size, color));
     return this;
   }
 
@@ -68,7 +72,7 @@ export default class Block {
     let y = this.pos.y - this.size.y/2 + this.move.y - this.offset.y;
     let w = this.size.x;
     let h = this.size.y;
-    let r = this.radius;
+    let r = window.innerHeight*this.radius/1000;
     let color = toRGBA(this.activeColor);
 
     ctx.beginPath();
@@ -137,15 +141,10 @@ export default class Block {
 
     ctx.fill();
 
-    if(this.text){
-      ctx.beginPath();
-      ctx.font = `${this.size.x/100*this.fontSize}px Arial`;
-      ctx.fillStyle = toRGBA(this.fontColor);
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(this.text, this.pos.x + this.move.x - this.offset.x, this.pos.y + this.move.y - this.offset.y);
-      ctx.closePath();
-    }
+    this.text.forEach((item) => {
+      item.draw(this.move, this.offset);
+    });
+
 
   }
 
