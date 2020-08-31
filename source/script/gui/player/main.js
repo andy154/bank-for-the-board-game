@@ -1,5 +1,6 @@
 import {W, H, vecPos, vecSize, vec, vecLocal, color} from '/script/gui/gui.js';
 
+
 function register(game){
   let name = prompt('Введите ваше имя:');
 
@@ -7,6 +8,7 @@ function register(game){
 
   game.playerRegister(name);
 }
+
 
 export async function main(game, gui, updatedVars = ''){
   await game.isLoaded;
