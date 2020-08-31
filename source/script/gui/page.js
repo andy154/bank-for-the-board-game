@@ -8,6 +8,12 @@ export default class Page {
     return this;
   }
 
+  drawElements(event){
+    Object.values(this.elements).forEach((element) => {
+      if(element) element.draw(event);
+    });
+  }
+
   addBlock(name, pos, size, radius, color, hoverColor){
     return new Block(this, name, pos, size, radius, color, hoverColor);
   }

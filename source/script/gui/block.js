@@ -7,6 +7,9 @@ function toRGBA(color){
 export default class Block {
   constructor(page, name, pos, size, radius, color, hoverColor){
     this.page = page;
+    this.name = name;
+    this.subs = [];
+    this.parent = null;
 
     this.pos = pos;
     this.size = size;
@@ -36,6 +39,17 @@ export default class Block {
 
     page.elements[name] = this;
     return this;
+  }
+
+  addParent(element){
+    element.subs.push(this);
+    this.parent = element;
+    return this;
+  }
+
+  deleteSubs(){
+    this.subs.forEach(item => item.page.elements[item.name] = null);
+    this.subs = [];
   }
 
   setFontSize(size){
@@ -144,7 +158,6 @@ export default class Block {
     this.text.forEach((item) => {
       item.draw(this.move, this.offset);
     });
-
 
   }
 

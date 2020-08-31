@@ -10,17 +10,12 @@ class Game {
   }
 
   create(){
-    let updatedVars = '';
     this.id = Date.now();
     this.exist = true;
-    updatedVars += 'game.exist';
     this.status = 'wait_players'
-    updatedVars += 'game.status';
     this.currency = config.currency;
 
-    this.players = [];
-
-    return updatedVars;
+    return 'game.exist; game.status';
   }
 
   load(){
@@ -29,7 +24,9 @@ class Game {
 
   cancel(){
     this.exist = false;
-    return 'game.exist';
+    this.status = null;
+    Player.array = [];
+    return 'game.exist; game.status; game.playersList; game.playerData';
   }
 
   getPlayerData(client){

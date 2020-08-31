@@ -59,9 +59,8 @@ export default class GUI {
       if(a == this.currentPage.drag) return 1;
       if(b == this.currentPage.drag) return -1;
     });
-    Object.values(this.currentPage.elements).forEach((element) => {
-      element.draw(event);
-    });
+
+    this.currentPage.drawElements(event);
   }
 
 }
