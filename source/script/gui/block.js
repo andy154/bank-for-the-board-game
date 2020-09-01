@@ -67,6 +67,11 @@ export default class Block {
     return this;
   }
 
+  onDrop(func){
+    this.ondrop = func;
+    return this;
+  }
+
   draw(event = null){
     let ctx = this.page.gui.ctx;
     let x = this.pos.x - this.size.x/2 + this.move.x - this.offset.x;
@@ -117,13 +122,19 @@ export default class Block {
         }
 
         if( touchend ){
+
           if(this.page.drag == this){
             this.dragReset();
+
           }else if(this.page.drag && this.page.drag != this && this.ondrop){
             this.ondrop(this.page.drag);
+            if(!this.page.isCurrent) return true;
+
           }else if(this.onclick){
             this.onclick();
+            if(!this.page.isCurrent) return true;
           }
+
           this.inPath = false;
           this.activeColor = this.color;
           return this.draw();

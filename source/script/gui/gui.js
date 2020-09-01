@@ -31,6 +31,7 @@ export function color(r, g, b, a){
 }
 
 export default class GUI {
+
   constructor(){
     let canvas = document.createElement('canvas');
     canvas.width = W;
@@ -51,14 +52,18 @@ export default class GUI {
     return this.pages[name] = new Page(this);
   }
 
-  update(event = null){
-    this.ctx.clearRect(0, 0, W, H);
-    if(!this.currentPage) return;
+  setPage(page){
+    if(this.currentPage) this.currentPage.isCurrent = false;
+    this.currentPage = page;
+  }
 
-    if(this.currentPage.drag) Object.values(this.currentPage.elements).sort( (a, b) => {
-      if(a == this.currentPage.drag) return 1;
-      if(b == this.currentPage.drag) return -1;
-    });
+  clear(){
+    this.ctx.clearRect(0, 0, W, H);
+  }
+
+  update(event = null){
+    this.clear();
+    if(!this.currentPage) return;
 
     this.currentPage.drawElements(event);
   }

@@ -18,18 +18,21 @@ export async function main(game, gui, updatedVars = ''){
   game.playerData = updatedVars.includes('game.playerData') ? await game.getPlayerData() : game.playerData || await game.getPlayerData();
 
   if(!game.exist) {
-    gui.currentPage = initPage(game, gui, 'waitGame');
+    let page = initPage(game, gui, 'waitGame');
+    gui.setPage(page);
     return gui.update();
   }
 
   if(game.status == 'wait_players') {
     if(game.playerData){
-      gui.currentPage = initPage(game, gui, 'waitPlayers');
+      let page = initPage(game, gui, 'waitPlayers');
+      gui.setPage(page);
       return gui.update();
     }
     return register(game);
   }else if(game.status == 'playing'){
-    gui.currentPage = initPage(game, gui, 'gameMainPage');
+    let page = initPage(game, gui, 'gameMainPage');
+    gui.setPage(page);
 
     return gui.update();
   }
