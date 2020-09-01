@@ -8,8 +8,6 @@ export default class Block {
   constructor(page, name, pos, size, radius, color, hoverColor){
     this.page = page;
     this.name = name;
-    this.subs = [];
-    this.parent = null;
 
     this.pos = pos;
     this.size = size;
@@ -41,11 +39,6 @@ export default class Block {
     return this;
   }
 
-  deleteSubs(){
-    this.subs.forEach(item => item.page.elements[item.name] = null);
-    this.subs = [];
-  }
-
   setFontSize(size){
     this.fontSize = size;
     return this;
@@ -54,12 +47,6 @@ export default class Block {
   setFont(size, color){
     this.fontSize = size;
     this.fontColor = color;
-    return this;
-  }
-
-  addParent(element){
-    element.subs.push(this);
-    this.parent = element;
     return this;
   }
 
