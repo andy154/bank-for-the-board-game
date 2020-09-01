@@ -12,13 +12,19 @@ function addMainPage(game, gui){
   addPageTitle(page);
   page.addBlock('block_gameFuncs', vecPos(0, 50), vecSize(60, 40), 5, color(235, 162, 57, 0.5));
 
-  page.addBlock('button_gameCreate', vecPos(0, 40), vecSize(30, 12), 5, color(235, 122, 57, 0.75), color(235, 102, 57, 0.75))
+  let button = {};
+  button.size = vecSize(30, 12);
+  button.color = color(235, 122, 57, 0.75);
+  button.hoverColor = color(235, 102, 57, 0.75);
+  button.roundRadius = 5;
+
+  page.addBlock('button_gameCreate', vecPos(0, 40), button.size, button.roundRadius, button.color, button.hoverColor)
   .addText('Создать игру', vec(0, 0), 4)
   .onClick( () => {
     game.create();
   } );
 
-  page.addBlock('button_gameLoad', vecPos(0, 60), vecSize(30, 12), 5, color(235, 122, 57, 0.75), color(235, 102, 57, 0.75))
+  page.addBlock('button_gameLoad', vecPos(0, 60), button.size, button.roundRadius, button.color, button.hoverColor)
   .addText('Загрузить игру', vec(0, 0), 4)
   .onClick( ()=> {
     alert('load');
@@ -28,6 +34,7 @@ function addMainPage(game, gui){
 }
 
 function addWaitPlayersPage(game, gui){
+
   let page = gui.addPage('waitPlayers');
 
   addPageTitle(page);
@@ -53,6 +60,32 @@ function addGameMainPage(game, gui){
   let page = gui.addPage('gameMainPage');
 
   addPageTitle(page);
+
+  page.addBlock('block_playersList', vecPos(0, 55), vecSize(55, 50), 5, color(235, 162, 57, 0.5))
+
+  let button = {};
+  button.size = vecSize(40, 10);
+  button.color = color(235, 122, 57, 0.75);
+  button.hoverColor = color(235, 102, 57, 0.75);
+  button.roundRadius = 5;
+
+  page.addBlock('button_eventLog', vecPos(0, 40), button.size, button.roundRadius, button.color, button.hoverColor)
+  .addText('Журнал событий', vec(0, 0), 4)
+  .onClick( () => {
+
+  } );
+
+  page.addBlock('button_gameStats', vecPos(0, 55), button.size, button.roundRadius, button.color, button.hoverColor)
+  .addText('Статистика игры', vec(0, 0), 4)
+  .onClick( () => {
+
+  } );
+
+  page.addBlock('button_playersStats', vecPos(0, 70), button.size, button.roundRadius, button.color, button.hoverColor)
+  .addText('Статистика игроков', vec(0, 0), 4)
+  .onClick( () => {
+
+  } );
 
   return page;
 }

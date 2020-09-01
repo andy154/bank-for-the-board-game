@@ -30,7 +30,7 @@ export async function main(game, gui, updatedVars = ''){
 
     return gui.update();
   }else if(game.status == 'playing'){
-    gui.currentPage = gui.pages.gameMainPage;
+    gui.currentPage = initPage(game, gui, 'gameMainPage');
 
     return gui.update();
   }
