@@ -29,6 +29,11 @@ class Game {
     return 'game.exist; game.status; game.playersList; game.playerData';
   }
 
+  begin(){
+    this.status = 'playing';
+    return 'game.status';
+  }
+
   getPlayerData(client){
     let player = Player.find(client.ip);
     return player ? player.getData() : false;

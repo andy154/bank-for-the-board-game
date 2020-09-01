@@ -52,5 +52,10 @@ new Method('set:game.status', (data) => {
   new Message('updateData', 'game.status', Client.array).send();
 })
 
+new Method('func:game.begin', () => {
+  let updatedVars = game.begin();
+  new Message('updateData', updatedVars, Client.array).send();
+})
+
 
 module.exports = Method.list;

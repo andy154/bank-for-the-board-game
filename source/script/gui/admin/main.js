@@ -1,3 +1,4 @@
+import { initPage } from '/script/gui/admin/pages.js';
 import {W, H, vecPos, vecSize, vec, color} from '/script/gui/gui.js';
 export async function main(game, gui, updatedVars = ''){
   await game.isLoaded;
@@ -7,12 +8,12 @@ export async function main(game, gui, updatedVars = ''){
   game.playersList = updatedVars.includes('game.playersList') ? await game.getPlayersList() : game.playersList || await game.getPlayersList();
 
   if(!game.exist) {
-    gui.currentPage = gui.pages.main;
+    gui.currentPage = initPage(game, gui, 'main');
     return gui.update();
   }
 
   if(game.status == 'wait_players') {
-    gui.currentPage = gui.pages.waitPlayers;
+    gui.currentPage = initPage(game, gui, 'waitPlayers');
     gui.currentPage.elements.block_playersList.deleteSubs();
 
     if(game.playersList.length == 0) {
@@ -29,6 +30,10 @@ export async function main(game, gui, updatedVars = ''){
       .addText(_player.ip.slice(7), vec(25, 0), 2.5)
       .onClick( () => {});
     });
+
+    return gui.update();
+  }else if(game.status == 'playing'){
+    gui.currentPage = gui.pages.gameMainPage;
 
     return gui.update();
   }

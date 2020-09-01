@@ -1,6 +1,5 @@
 import {game} from '/script/game/index.js';
 import GUI from '/script/gui/gui.js';
-import { initPages } from '/script/gui/player/pages.js';
 import { main } from '/script/gui/player/main.js';
 export let gui = new GUI();
 
@@ -23,10 +22,7 @@ if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigat
   gui.canvas.addEventListener('mousemove', touchMove);
 }
 
-
-initPages(game, gui);
 main(game, gui);
-
 
 game.server.socket.addEventListener('updateData', customEvent => {
   let message = customEvent.detail;

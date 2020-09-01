@@ -40,4 +40,8 @@ export default class Game {
     this.server.sendMessage('func:game.playerRegister', name);
   }
 
+  begin(){
+    this.server.sendMessage('func:game.begin');
+  }
+
 }

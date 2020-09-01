@@ -43,17 +43,28 @@ function addWaitPlayersPage(game, gui){
   page.addBlock('button_gameStart', vecPos(15, 80), vecSize(25, 5), 5, color(122, 235, 57, 0.75), color(92, 225, 57, 0.75))
   .addText('Начать игру', vec(0, 0), 4)
   .onClick( ()=> {
-    alert('начать игру')
+    game.begin();
   });
 
   return page;
 }
 
-export function initPages(game, gui){
-  let pages = {};
+function addGameMainPage(game, gui){
+  let page = gui.addPage('gameMainPage');
 
-  pages.main = addMainPage(game, gui);
-  pages.waitPlayers = addWaitPlayersPage(game, gui);
+  addPageTitle(page);
 
-  gui.pages = pages;
+  return page;
+}
+
+
+let pages = {};
+
+pages.main = addMainPage;
+pages.waitPlayers = addWaitPlayersPage;
+pages.gameMainPage = addGameMainPage;
+
+
+export function initPage(game, gui, pageName){
+  return pages[pageName](game, gui);
 }

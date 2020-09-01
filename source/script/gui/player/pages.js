@@ -9,7 +9,7 @@ function addPageTitle(page){
 }
 
 
-function addMainPage(game, gui){
+function addWaitGamePage(game, gui){
 
   let page = gui.addPage('main');
 
@@ -21,7 +21,6 @@ function addMainPage(game, gui){
 
   return page;
 }
-
 
 function addWaitPlayersPage(game, gui){
 
@@ -35,12 +34,21 @@ function addWaitPlayersPage(game, gui){
   return page;
 }
 
+function addGameMainPage(game, gui){
+  let page = gui.addPage('gameMainPage');
 
-export function initPages(game, gui){
-  let pages = {};
+  addPageTitle(page);
 
-  pages.main = addMainPage(game, gui);
-  pages.waitPlayers = addWaitPlayersPage(game, gui);
+  return page;
+}
 
-  gui.pages = pages;
+
+let pages = {};
+pages.waitGame = addWaitGamePage;
+pages.waitPlayers = addWaitPlayersPage;
+pages.gameMainPage = addGameMainPage;
+
+
+export function initPage(game, gui, pageName){
+  return pages[pageName](game, gui);
 }

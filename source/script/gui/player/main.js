@@ -1,5 +1,5 @@
-import {W, H, vecPos, vecSize, vec, vecLocal, color} from '/script/gui/gui.js';
-
+import { W, H, vecPos, vecSize, vec, color } from '/script/gui/gui.js';
+import { initPage } from '/script/gui/player/pages.js';
 
 function register(game){
   let name = prompt('Введите ваше имя:');
@@ -18,16 +18,20 @@ export async function main(game, gui, updatedVars = ''){
   game.playerData = updatedVars.includes('game.playerData') ? await game.getPlayerData() : game.playerData || await game.getPlayerData();
 
   if(!game.exist) {
-    gui.currentPage = gui.pages.main;
+    gui.currentPage = initPage(game, gui, 'waitGame');
     return gui.update();
   }
 
   if(game.status == 'wait_players') {
     if(game.playerData){
-      gui.currentPage = gui.pages.waitPlayers;
+      gui.currentPage = initPage(game, gui, 'waitPlayers');
       return gui.update();
     }
     return register(game);
+  }else if(game.status == 'playing'){
+    gui.currentPage = initPage(game, gui, 'gameMainPage');
+
+    return gui.update();
   }
 
 }

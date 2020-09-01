@@ -41,12 +41,6 @@ export default class Block {
     return this;
   }
 
-  addParent(element){
-    element.subs.push(this);
-    this.parent = element;
-    return this;
-  }
-
   deleteSubs(){
     this.subs.forEach(item => item.page.elements[item.name] = null);
     this.subs = [];
@@ -60,6 +54,12 @@ export default class Block {
   setFont(size, color){
     this.fontSize = size;
     this.fontColor = color;
+    return this;
+  }
+
+  addParent(element){
+    element.subs.push(this);
+    this.parent = element;
     return this;
   }
 
