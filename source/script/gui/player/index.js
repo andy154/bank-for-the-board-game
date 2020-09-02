@@ -27,4 +27,9 @@ main(game, gui);
 game.server.socket.addEventListener('updateData', customEvent => {
   let message = customEvent.detail;
   main(game, gui, message.data);
-})
+});
+
+game.server.socket.addEventListener('alert', customEvent => {
+  let message = customEvent.detail;
+  alert(message.data);
+});

@@ -16,6 +16,8 @@ export async function main(game, gui, updatedVars = ''){
   game.exist = updatedVars.includes('game.exist') ? await game.getExist() : game.exist || await game.getExist();
   game.status = updatedVars.includes('game.status') ? await game.getStatus() : game.status || await game.getStatus();
   game.playerData = updatedVars.includes('game.playerData') ? await game.getPlayerData() : game.playerData || await game.getPlayerData();
+  game.currency = updatedVars.includes('game.currency') ? await game.getCurrency() : game.currency || await game.getCurrency();
+  game.playersList = updatedVars.includes('game.playersList') ? await game.getPlayersList() : game.playersList || await game.getPlayersList();
 
   if(!game.exist) {
     let page = initPage(game, gui, 'waitGame');
@@ -30,6 +32,7 @@ export async function main(game, gui, updatedVars = ''){
       return gui.update();
     }
     return register(game);
+
   }else if(game.status == 'playing'){
     let page = initPage(game, gui, 'gameMainPage');
     gui.setPage(page);

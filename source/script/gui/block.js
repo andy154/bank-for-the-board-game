@@ -122,18 +122,16 @@ export default class Block {
         }
 
         if( touchend ){
-
-          if(this.page.drag == this){
-            this.dragReset();
-
-          }else if(this.page.drag && this.page.drag != this && this.ondrop){
+          if(this.page.drag && this.page.drag != this && this.ondrop){
             this.ondrop(this.page.drag);
             if(!this.page.isCurrent) return true;
 
-          }else if(this.onclick){
+          }else if(this.onclick && this.offset.x == this.move.x &&  this.offset.y == this.move.y ){
             this.onclick();
             if(!this.page.isCurrent) return true;
-          }
+          }else if(this.page.drag == this){
+            this.dragReset();
+          } 
 
           this.inPath = false;
           this.activeColor = this.color;

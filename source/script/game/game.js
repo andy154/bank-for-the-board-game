@@ -24,6 +24,11 @@ export default class Game {
     return response.data;
   }
 
+  async getCurrency(){
+    let response = await this.server.sendMessageWithResponse('get:game.currency');
+    return response.data;
+  }
+
   create(){
      this.server.sendMessage('func:game.create');
   }
@@ -42,6 +47,30 @@ export default class Game {
 
   begin(){
     this.server.sendMessage('func:game.begin');
+  }
+
+  makeTransfer(payeeIp, count){
+    let data = {
+      payeeIp: payeeIp,
+      count: +count
+    }
+    this.server.sendMessage('func:game.makeTransfer', data);
+  }
+
+  makePayment(payeeName, count){
+    let data = {
+      payeeName: payeeName,
+      count: +count
+    };
+    this.server.sendMessage('func:game.makePayment', data);
+  }
+
+  payout(count){
+    this.server.sendMessage('func:game.payout', +count);
+  }
+
+  getJeckpot(){
+    this.server.sendMessage('func:game.getJeckpot');
   }
 
 }

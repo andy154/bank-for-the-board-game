@@ -5,8 +5,27 @@ class Game {
 
   constructor(){
     this.exist = false;
+    this.status = null;
+
+    this.bank = {
+      name: 'Банк',
+      money: 0
+    };
+    this.fund = {
+      name: 'Благотворительный фонд',
+      money: 50,
+      minMoney: 50
+    };
+    this.jackpot = {
+      name: 'Джекпот',
+      money: 0
+    };
 
     return this;
+  }
+
+  getPlayerByIp(ip){
+    return Player.find(ip);
   }
 
   create(){
@@ -14,8 +33,6 @@ class Game {
     this.exist = true;
     this.status = 'wait_players'
     this.currency = config.currency;
-
-    return 'game.exist; game.status';
   }
 
   load(){
@@ -26,12 +43,10 @@ class Game {
     this.exist = false;
     this.status = null;
     Player.array = [];
-    return 'game.exist; game.status; game.playersList; game.playerData';
   }
 
   begin(){
     this.status = 'playing';
-    return 'game.status';
   }
 
   getPlayerData(client){
@@ -41,11 +56,29 @@ class Game {
 
   playerRegister(name, client){
     new Player(name, client);
-    return 'game.playerData; game.playersList';
   }
 
   getPlayersList(){
     return Player.getList();
+  }
+
+  makeTransfer(payer, payee, count){
+    if(payer.money >= count) {
+      payer.money -= count;
+      payee.money += count;
+      return true;
+    }
+
+    return false;
+  }
+
+  makePayment(payer, payee, count){
+    if(payer.money >= count){
+      payer.money -= count;
+      payee.money += count;
+      return true;
+    }
+    return false;
   }
 }
 
