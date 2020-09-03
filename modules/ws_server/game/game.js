@@ -18,14 +18,21 @@ class Game {
     };
     this.jackpot = {
       name: 'Джекпот',
-      money: 0
+      money: 200,
+      minMoney: 200
     };
+
+    this.vote = null;
 
     return this;
   }
 
   getPlayerByIp(ip){
     return Player.find(ip);
+  }
+
+  getPlayersCount(){
+    return Player.array.length;
   }
 
   create(){
@@ -80,6 +87,27 @@ class Game {
     }
     return false;
   }
+
+  makePayout(){
+    if(!this.vote) return false;
+
+    this.vote.payee.money += this.vote.count;
+    this.vote.payer.money -= this.vote.count;
+
+    if(this.vote.payer.minMoney > this.vote.payer.money) this.vote.payer.money = this.vote.payer.minMoney;
+    return true;
+  }
+
+  createVote(payer, payee, count, question){
+    this.vote = {
+      payer: payer,
+      payee: payee,
+      count: count,
+      question: question,
+      votedTrue: [payee]
+    };
+  }
+
 }
 
 module.exports = Game;

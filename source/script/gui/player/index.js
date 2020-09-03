@@ -33,3 +33,10 @@ game.server.socket.addEventListener('alert', customEvent => {
   let message = customEvent.detail;
   alert(message.data);
 });
+
+game.server.socket.addEventListener('confirm', customEvent => {
+  let message = customEvent.detail;
+  let vote = confirm(message.data);
+
+  game.sendVote(vote);
+});

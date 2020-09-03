@@ -55,7 +55,18 @@ function addGameMainPage(game, gui){
         if(count === null) return;
         if(!+count) return alert('Вы не указали сумму!');
 
-        game.payout(count);
+        game.takeMoney(count);
+      break;
+
+      case 'jackpot':
+      let conf = confirm('Вы хотите забрать джекпот?');
+
+      if(conf){
+        game.getJeckpot();
+      }else{
+        return;
+      }
+
       break;
 
       case 'fund':
@@ -63,16 +74,6 @@ function addGameMainPage(game, gui){
         gui.setPage(page);
       break;
 
-      case 'jackpot':
-        let conf = confirm('Вы хотите забрать джекпот?');
-
-        if(conf){
-          game.getJeckpot();
-        }else{
-          return;
-        }
-
-      break;
     }
   });
 

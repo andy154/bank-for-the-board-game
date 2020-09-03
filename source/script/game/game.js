@@ -29,6 +29,11 @@ export default class Game {
     return response.data;
   }
 
+  async getVote(){
+    let response = await this.server.sendMessageWithResponse('get:game.vote');
+    return response.data;
+  }
+
   create(){
      this.server.sendMessage('func:game.create');
   }
@@ -65,12 +70,16 @@ export default class Game {
     this.server.sendMessage('func:game.makePayment', data);
   }
 
-  payout(count){
-    this.server.sendMessage('func:game.payout', +count);
+  takeMoney(count){
+    this.server.sendMessage('func:game.takeMoney', +count);
   }
 
   getJeckpot(){
     this.server.sendMessage('func:game.getJeckpot');
+  }
+
+  sendVote(vote){
+    this.server.sendMessage('func:game.voting', vote);
   }
 
 }

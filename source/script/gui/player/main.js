@@ -9,7 +9,6 @@ function register(game){
   game.playerRegister(name);
 }
 
-
 export async function main(game, gui, updatedVars = ''){
   await game.isLoaded;
 
@@ -18,6 +17,14 @@ export async function main(game, gui, updatedVars = ''){
   game.playerData = updatedVars.includes('game.playerData') ? await game.getPlayerData() : game.playerData || await game.getPlayerData();
   game.currency = updatedVars.includes('game.currency') ? await game.getCurrency() : game.currency || await game.getCurrency();
   game.playersList = updatedVars.includes('game.playersList') ? await game.getPlayersList() : game.playersList || await game.getPlayersList();
+  game.vote = await game.getVote();
+
+  if(!game.playerData) return;
+
+  if(game.vote) {
+    let vote = confirm(game.vote);
+    game.sendVote(vote);
+  }
 
   if(!game.exist) {
     let page = initPage(game, gui, 'waitGame');
